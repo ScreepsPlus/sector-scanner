@@ -49,10 +49,11 @@ async function run () {
     await sleep(200)    
   }
   /**/
-  await Promise.all(Object.entries(shards).map(([shard, { roomInfo, roomMaps, portals }]) => Promise.all([
+  await Promise.all(Object.entries(shards).map(([shard, { roomInfo, roomMaps, portals, users }]) => Promise.all([
     fs.writeFile(`${shard}.roominfo.json`, JSON.stringify(roomInfo)),
     fs.writeFile(`${shard}.roommaps.json`, JSON.stringify(roomMaps)),
     fs.writeFile(`${shard}.portals.json`, JSON.stringify(portals)),
+    fs.writeFile(`${shard}.users.json`, JSON.stringify(users)),
   ])))
   await api.socket.disconnect()
 }
@@ -71,7 +72,7 @@ async function getSectors(shard) {
       infoRooms.push(`E${x}N${y}`, `W${x}N${y}`, `E${x}S${y}`, `W${x}S${y}`)
     }
   }
-  const { stats: roomInfo } = await api.raw.game.mapStats(infoRooms, 'owner0', shard)
+  const { stats: roomInfo, users } = await api.raw.game.mapStats(infoRooms, 'owner0', shard)
   const roomMaps = {}
   await Promise.all(mapRooms.map(async room => {
     roomMaps[room] = await roomMap(shard, room)
@@ -79,6 +80,7 @@ async function getSectors(shard) {
   return {
     roomInfo,
     roomMaps,
+    users,
   }
 }
 
