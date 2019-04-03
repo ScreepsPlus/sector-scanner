@@ -9,6 +9,6 @@
   "scripts": {
     "start": "node index.js",
     "scan": "node index.js",
-    "refine": "node refine.js",
+    "refine": "node refine.js"
   }
 }
