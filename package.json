@@ -7,6 +7,8 @@
     "screeps-api": "^1.8.1"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "scan": "node index.js",
+    "refine": "node refine.js",
   }
 }
