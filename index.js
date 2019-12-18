@@ -34,7 +34,7 @@ async function run () {
     }
   }
 
-  const BATCH_SIZE=1000
+  const BATCH_SIZE=500
   const batches = []
   while(portalRooms.length) {
     batches.push(portalRooms.splice(0, BATCH_SIZE))
